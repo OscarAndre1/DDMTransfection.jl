@@ -2,7 +2,11 @@ module DDMTransfection
 
 using Images
 using SparseArrays
+using SegmentationUtils
+
 using StatsBase
+using RegionProps
+using DataFrames
 
 
 
@@ -92,7 +96,6 @@ function segment_reference_image(image;
         maxsize=2000,
         kwargs...
     )
-    
     i = reference_channel
     ref_img = image[i,:,:]
     
@@ -115,7 +118,6 @@ end
 MultiPointAnalysis("Transfection") do image, config
     
     image = drop_empty_dims(image)
-    
     seg_params = config["segmentation"]
     labeled_image = segment_reference_image(image, to_named_tuple(seg_params)...)
     
